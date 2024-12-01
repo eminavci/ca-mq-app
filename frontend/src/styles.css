@@ -1,0 +1,12 @@
+/* You can add global styles to this file, and also import other style files */
+
+
+.withborder{
+    border: 1px solid #cac9c9;
+    padding: 5px 0;
+    margin: 5px 0;
+}
+
+.clickabletr{
+    cursor:pointer; 
+}

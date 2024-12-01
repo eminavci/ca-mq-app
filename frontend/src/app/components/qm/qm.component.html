@@ -1,0 +1,57 @@
+<div class="row">
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Message Text</th>
+            </tr>
+        </thead>
+        <tbody>
+         @for (qm of qmMessages; track $index) {
+            <tr class="clickabletr" (click)="qmSelected = qm; isPopupOpen.set(true)">
+                <td>{{qm.id}}</td>
+                <td>{{qm.message}}</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+
+
+<div class="modal" [style]="{'display': isPopupOpen() ? 'block': 'none'}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">QM Message Detail</h4>
+                <button type="button" (click)="isPopupOpen.set(false)" class="btn-close" ></button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <table class="table">
+                    <tr>
+                        <th class="small text-muted pr-2" width="20%" ></th>
+                        <td  width="80%">{{qmSelected.messageId}}</td>
+                    </tr>
+                    <tr>
+                        <th class="small text-muted pr-2" width="20%" ></th>
+                        <td  width="80%">{{qmSelected.date}}</td>
+                    </tr>
+                    <tr>
+                        <th class="small text-muted pr-2" width="20%" ></th>
+                        <td  width="80%">{{qmSelected.message}}</td>
+                    </tr>
+                    
+                </table>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" (click)="isPopupOpen.set(false)">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>

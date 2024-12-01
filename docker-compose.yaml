@@ -1,0 +1,43 @@
+version: '3.8'
+services:
+  ibm-mq:
+    image: ibmcom/mq:latest
+    container_name: ibm-mq
+    environment:
+      - LICENSE=accept
+      - MQ_QMGR_NAME=QM1  # Queue Manager name
+    ports:
+      - "1414:1414"  # Default port for IBM MQ
+      - "9443:9443"  # Web console port
+    volumes:
+      - ./data/ibmmq:/var/mqm  # Persist MQ data across container restarts
+    networks:
+      - backend
+  backend:
+    image: mq-app:latest
+    container_name: backend
+    environment:
+      - "SPRING_PROFILES_ACTIVE=docker,test-message" # test-message profile is optional to add some default messages.
+    ports:
+      - "8080:8080"
+    links:
+      - ibm-mq
+    restart: on-failure
+    depends_on:
+      - ibm-mq
+    networks:
+      - frontend
+      - backend
+  frontend:
+    image: frontend:latest
+    container_name: frontend
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend
+    networks:
+      - frontend
+networks:
+  frontend: null
+  backend: null
+

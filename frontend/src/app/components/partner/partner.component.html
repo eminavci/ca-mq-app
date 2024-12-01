@@ -1,0 +1,78 @@
+<div class="row withborder">
+    <form class="row gy-2 align-items-center" #form="ngForm">
+        <div class="col-auto">
+          <label class="visually-hidden" for="alias">Alias</label>
+          <div class="input-group">
+            <input type="text" class="form-control" [(ngModel)] = "partnerObj.alias" name="alias" placeholder="Alias">
+          </div>
+        </div>
+        <div class="col-auto">
+            <label class="visually-hidden" for="type">Type</label>
+            <div class="input-group">
+              <input type="text" class="form-control" [(ngModel)] = "partnerObj.type" name="type" placeholder="Type">
+            </div>
+        </div>
+        <div class="col-auto">
+          <label class="visually-hidden" for="direction">Direction</label>
+          <select class="form-select" [(ngModel)] = "partnerObj.direction" name="direction">
+            <option value="INBOUND">INBOUND</option>
+            <option value="OUTBOUND">OUTBOUND</option>
+          </select>
+        </div>
+        <div class="col-auto">
+            <label class="visually-hidden" for="application">Application</label>
+            <div class="input-group">
+              <input type="text" class="form-control" [(ngModel)] = "partnerObj.application" name="application" placeholder="Application">
+            </div>
+        </div>
+        <div class="col-auto">
+            <label class="visually-hidden" for="processFlowType">Processed Flow Type</label>
+            <select class="form-select" [(ngModel)] = "partnerObj.processFlowType" name="processFlowType">
+              <option value="MESSAGE">MESSAGE</option>
+              <option value="ALERTING">ALERTING</option>
+              <option value="NOTIFICATION">NOTIFICATION</option>
+            </select>
+          </div>
+          <div class="col-auto">
+            <label class="visually-hidden" for="description">Descritpion</label>
+            <div class="input-group">
+              <input type="text" class="form-control" [(ngModel)] = "partnerObj.description" name="description" placeholder="Descritpion">
+            </div>
+        </div>
+        <div class="col-auto">
+          <button type="submit" class="btn btn-primary" (click)="onSavePartner()">Save</button>
+        </div>
+      </form>
+</div>
+
+<div class="row withborder">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Alias</th>
+                <th>Type</th>
+                <th>Direction</th>
+                <th>Application</th>
+                <th>Processed Flow Type</th>
+                <th>Descritpion</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (p of partners; track $index) {
+            <tr>
+                <td>{{p.id}}</td>
+                <td>{{p.alias}}</td>
+                <td>{{p.type}}</td>
+                <td>{{p.direction}}</td>
+                <td>{{p.application}}</td>
+                <td>{{p.processFlowType}}</td>
+                <td>{{p.description}}</td>
+                <td>
+                    <button class="btn btn-danger" (click)="deletePartner(p)">Delete</button>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
